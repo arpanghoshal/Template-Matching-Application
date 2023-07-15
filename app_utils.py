@@ -7,7 +7,7 @@ def load_csv(file):
     """Load csv file with pandas."""
     try:
         # Try to read CSV file
-        return pd.read_csv(file, nrows=5)
+        return pd.read_csv(file, nrows=5), None
     except Exception as e:
         # Return None and the error if an exception occurs
         return None, str(e)
