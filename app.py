@@ -6,7 +6,7 @@ from langchain.chat_models import ChatOpenAI
 from langchain.prompts import PromptTemplate
 
 st.title('Template Matching Application')
-st.markdown('Made by [Arpan Ghoshal](https://www.linkedin.com/in/arpanghoshal/): [3 hours project](https://github.com/arpanghoshal/Template-Matching-Application)')
+st.markdown('Made by [Arpan Ghoshal](https://www.linkedin.com/in/arpanghoshal/)')
 
 template_file = st.file_uploader("Upload your Template Table", type=['csv'])
 user_file = st.file_uploader("Upload your table to transform", type=['csv'])
@@ -135,3 +135,4 @@ if user_file and template_file:
                 generate_transformation_code(json_output)
 else:
     st.write("Please upload both files.")
+st.markdown('3 hours project using Langchain and OpenAI, [Project Link](https://github.com/arpanghoshal/Template-Matching-Application)')
