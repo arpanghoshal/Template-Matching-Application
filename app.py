@@ -68,7 +68,7 @@ def generate_transformation_instructions(user_file, template_file):
         """
     )
 
-    llm = ChatOpenAI(model='gpt-3.5-turbo',openai_api_key=st.secrets['OPENAI_API_KEY'],temperature=0.1)
+    llm = ChatOpenAI(model='gpt-3.5-turbo',openai_api_key=st.secrets['openai']['OPENAI_API_KEY'],temperature=0.1)
     return run_llm_chain(llm, prompt, {
         'user_table_str_col': user_table_str_col,
         'user_table_str_frst': user_table_str_frst,
@@ -79,7 +79,7 @@ def generate_transformation_instructions(user_file, template_file):
 
 def generate_correction_instructions(json_output, not_correct):
     """Generate corrected transformation instructions based on user feedback."""
-    llm = ChatOpenAI(model='gpt-3.5-turbo',openai_api_key=st.secrets['OPENAI_API_KEY'],temperature=0.2)
+    llm = ChatOpenAI(model='gpt-3.5-turbo',openai_api_key=st.secrets['openai']['OPENAI_API_KEY'],temperature=0.2)
     
     prompt = PromptTemplate(
         input_variables=["json_output","not_correct"],
@@ -94,7 +94,7 @@ def generate_correction_instructions(json_output, not_correct):
 
 def generate_transformation_code(json_output):
     """Generate transformation code based on json instructions."""
-    llm = ChatOpenAI(model='gpt-3.5-turbo',openai_api_key=st.secrets['OPENAI_API_KEY'],temperature=0.2)
+    llm = ChatOpenAI(model='gpt-3.5-turbo',openai_api_key=st.secrets['openai']['OPENAI_API_KEY'],temperature=0.2)
     
     prompt = PromptTemplate(
         input_variables=["json_output"],
