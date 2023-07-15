@@ -61,5 +61,3 @@ if user_file and template_file:
 else:
     # If both files are not uploaded, ask the user to upload both
     st.write("Please upload both files.")
-# Display the link to the project repository
-st.markdown('3 hours project using Langchain and OpenAI: [Project Link](https://github.com/arpanghoshal/Template-Matching-Application)')
