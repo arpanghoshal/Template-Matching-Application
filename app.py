@@ -135,4 +135,4 @@ if user_file and template_file:
                 generate_transformation_code(json_output)
 else:
     st.write("Please upload both files.")
-st.markdown('3 hours project using Langchain and OpenAI, [Project Link](https://github.com/arpanghoshal/Template-Matching-Application)')
+st.markdown('3 hours project using Langchain and OpenAI: [Project Link](https://github.com/arpanghoshal/Template-Matching-Application)')
