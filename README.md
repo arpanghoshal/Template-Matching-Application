@@ -1,51 +1,64 @@
 # Template Matching Application
 
-## Description
+## Overview
 
-The Template Matching Application is a web-based program designed to match user-specified tables (in CSV format) to a provided template table. It is mainly built using Python, Streamlit for web UI, and OpenAI's GPT-3.5-Turbo model along with Langchain for generating transformation instructions and code.
+The Template Matching Application is a tool that utilizes Langchain and OpenAI to transform a user's data to match a specific template. Users upload their data and a template file in CSV format, and the application generates instructions for transforming the data to match the template. These instructions are then converted into Python code, which the user can run on their local machine.
 
-## How it works
+## File Structure
 
-The application uses two CSV files uploaded by the user: a user table and a template table. It then uses OpenAI's GPT-3 model to generate a JSON object detailing how to transform the user table to match the template table. The generated transformation instructions include details on column renaming, data transformations, and which columns to remove or keep.
+The project is structured as follows:
 
-If the user is not satisfied with the generated transformation, they can indicate the issues and the system will use the GPT-3 model again to generate corrected transformation instructions.
+- `app.py`: This is the main application file. It contains the user interface logic and interacts with the helper functions defined in `app_utils.py`.
+- `app_utils.py`: This file contains all the helper functions used in the application for loading CSV files, running the LLMChain, and generating transformation instructions, correction instructions, and transformation code.
 
-Finally, the system generates Python code, using pandas, based on the final transformation instructions. The user can then use this code to apply the transformations on their local machine.
+## Function Descriptions
 
-## Dependencies
+`app_utils.py` contains the following functions:
 
-To use this application, you must have the following libraries installed:
+- `load_csv(file)`: This function takes a file path as an argument and uses pandas to load the CSV file. It returns a DataFrame containing the file data.
 
-- pandas
-- langchain
-- streamlit
-- OpenAI's GPT-3 model (model='gpt-3.5-turbo')
+- `run_llm_chain(llm, prompt, variables)`: This function runs an LLMChain using the provided language model, prompt, and variables.
+
+- `generate_transformation_instructions(user_file, template_file, openai_api_key)`: This function takes the user's file, the template file, and the OpenAI API key as arguments. It generates transformation instructions using the ChatOpenAI model and returns a JSON object detailing the instructions.
+
+- `generate_correction_instructions(json_output, not_correct, openai_api_key)`: This function takes the original transformation instructions, user feedback, and the OpenAI API key as arguments. It generates corrected transformation instructions based on the user's feedback.
+
+- `generate_transformation_code(json_output, openai_api_key)`: This function takes the transformation instructions and the OpenAI API key as arguments. It generates Python code for performing the data transformation based on the instructions.
 
 ## Usage
 
-1. Start the application.
-2. Upload your user table and template table (in CSV format).
-3. The system will generate a JSON object detailing the transformation instructions. Review these instructions.
-4. If the instructions are incorrect, provide details about the inaccuracies. The system will then generate corrected instructions.
-5. After approving the transformation instructions, click the "Generate Transformation Code" button. The system will then generate Python code, which you can use to transform your user table on your local machine.
+1. Clone this repository:
 
-## Functions
+```bash
+git clone https://github.com/arpanghoshal/Template-Matching-Application.git
+```
 
-`load_csv(file: object) -> pandas.DataFrame`  
-Loads a CSV file into a pandas DataFrame. If an error occurs during loading, it is caught and displayed in the UI. Returns a DataFrame with the first 5 rows of the CSV file or None if an error occurs.
+2. Install the required packages:
 
-`run_llm_chain(llm: LLMChain, prompt: PromptTemplate, variables: dict) -> dict`  
-Runs an instance of the LLMChain with the specified language model, prompt, and variables. If an error occurs during execution, it is caught and displayed in the UI. Returns the output of the LLMChain or None if an error occurs.
+```bash
+pip install -r requirements.txt
+```
 
-`generate_transformation_instructions(user_file: object, template_file: object) -> dict`  
-Generates transformation instructions for converting a user table to match a template table. Returns a JSON object detailing the transformation instructions or None if an error occurs.
+3. Run the Streamlit application:
 
-`generate_correction_instructions(json_output: dict, not_correct: str) -> dict`  
-Generates corrected transformation instructions based on user feedback. Returns a JSON object detailing the corrected transformation instructions or None if an error occurs.
+```bash
+streamlit run app.py
+```
 
-`generate_transformation_code(json_output: dict)`  
-Generates Python code for applying transformations to the user table based on the transformation instructions. Displays the code in the UI.
+4. Access the application in your browser via the localhost URL that Streamlit provides (usually `http://localhost:8501`).
 
-## Authors
+5. Follow the prompts in the application to upload your data and template files, verify the generated transformation instructions, and generate your transformation code.
 
-The Template Matching Application was created by Arpan Ghoshal as a 3-hour project. Try the app [here](https://template-matching-application.streamlit.app/).
+## Contributing
+
+Contributions are welcome! Please fork this repository and create a Pull Request with your changes.
+
+## License
+
+This project is licensed under the terms of the MIT license.
+
+## Author
+
+[Arpan Ghoshal](https://www.linkedin.com/in/arpanghoshal/)
+
+
