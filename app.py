@@ -6,6 +6,7 @@ from langchain.chat_models import ChatOpenAI
 from langchain.prompts import PromptTemplate
 
 st.title('Template Matching Application')
+st.markdown('Made by [Arpan Ghoshal](https://www.linkedin.com/in/arpanghoshal/): 3 hour project')
 
 template_file = st.file_uploader("Upload your Template Table", type=['csv'])
 user_file = st.file_uploader("Upload your table to transform", type=['csv'])
