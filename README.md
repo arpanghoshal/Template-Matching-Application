@@ -49,6 +49,12 @@ streamlit run app.py
 
 5. Follow the prompts in the application to upload your data and template files, verify the generated transformation instructions, and generate your transformation code.
 
+## ToDo:
+
+#### Misalignment and Ambiguity of mapping columns: 
+##### This can be removed by taking the cosine similarity of LLM(eg. BERT) embeddings of the User's data and matching it with the Template's data
+##### And then mapping it based on the the similarity.
+
 ## Contributing
 
 Contributions are welcome! Please fork this repository and create a Pull Request with your changes.
