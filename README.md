@@ -61,4 +61,7 @@ This project is licensed under the terms of the MIT license.
 
 [Arpan Ghoshal](https://www.linkedin.com/in/arpanghoshal/)
 
+## Note
+This project was successfully completed in a span of just 4 hours, thanks to the efficiency and power of the Langchain and OpenAI libraries. It involved a lot of iterative testing with various prompting techniques, to ensure that the generated outputs (transformation instructions and Python code) are accurate and robust. The application has been designed to be user-friendly, providing an intuitive interface and interactive options for uploading data, generating transformation instructions, making corrections, and generating transformation code. This project serves as an excellent demonstration of the capabilities of language models in practical applications.
+
 
