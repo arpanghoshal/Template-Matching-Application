@@ -151,7 +151,7 @@ def generate_correction_instructions(json_output, not_correct, openai_api_key):
 def generate_transformation_code(json_output, openai_api_key):
     """Generate transformation code based on json instructions."""
     # Initialize the language model
-    llm = ChatOpenAI(model='gpt-3.5-turbo',openai_api_key=openai_api_key,temperature=0.4)
+    llm = ChatOpenAI(model='gpt-3.5-turbo',openai_api_key=openai_api_key,temperature=0.2)
     
     # Prepare the prompt template
     prompt = PromptTemplate(
@@ -170,6 +170,8 @@ def generate_transformation_code(json_output, openai_api_key):
           2. Drop the columns listed in 'columns_to_remove'
           3. Keep the columns listed in 'columns_to_keep'
           4. Apply the transformations specified in 'data_transformations'
+
+        - The output should be only the python script
         """
     )
     # Run the LLMChain
