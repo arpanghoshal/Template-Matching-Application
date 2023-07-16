@@ -72,7 +72,7 @@ streamlit run app.py
 
 4. **Improving Accuracy Through Retraining:**
 
-- **Approach 1 - Few-shot Learning:** Store the transformation logic as part of 'prompt_examples' for future transformations.
+- **Approach 1 - Few-shot Learning:** Store the transformation logic as part of 'prompt_examples' for future transformations. [Link to the Few-shot Approach](https://github.com/arpanghoshal/Template-Matching-Application)
 - **Approach 2 - Retraining the Model:** Continuously gather 'labeled_data' from each successful transformation. When enough 'labeled_data' has been accumulated, retrain the LLM model. [Link to the Retraining Approach](https://github.com/arpanghoshal/Template-Matching-Application/blob/main/pseudo_algorithm_training.py)
 
 5. **Post-Transformation Validation:**
