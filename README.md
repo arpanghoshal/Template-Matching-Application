@@ -51,7 +51,7 @@ streamlit run app.py
 
 **Project Demo:** [Link](https://template-matching-application.streamlit.app/)
 
-**Algorithm for the Approach:** [Link](https://github.com/arpanghoshal/Template-Matching-Application/blob/main/psudo_algorithm_remove_misalign.py)
+**Algorithm for the Approach:** [Link to the Llgorithm for the Approach](https://github.com/arpanghoshal/Template-Matching-Application/blob/main/psudo_algorithm_remove_misalign.py)
 
 1. **Column Mapping:**
 
@@ -73,7 +73,7 @@ streamlit run app.py
 4. **Improving Accuracy Through Retraining:**
 
 - **Approach 1 - Few-shot Learning:** Store the transformation logic as part of 'prompt_examples' for future transformations.
-- **Approach 2 - Retraining the Model:** Continuously gather 'labeled_data' from each successful transformation. When enough 'labeled_data' has been accumulated, retrain the GPT model. [Link to the Algorithm Approach](https://github.com/arpanghoshal/Template-Matching-Application/blob/main/pseudo_algorithm_training.py)
+- **Approach 2 - Retraining the Model:** Continuously gather 'labeled_data' from each successful transformation. When enough 'labeled_data' has been accumulated, retrain the GPT model. [Link to the Retraining Approach](https://github.com/arpanghoshal/Template-Matching-Application/blob/main/pseudo_algorithm_training.py)
 
 5. **Post-Transformation Validation:**
 
