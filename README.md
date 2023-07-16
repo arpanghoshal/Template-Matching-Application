@@ -11,9 +11,9 @@ The project is structured as follows:
 - `app.py`: This is the main application file. It contains the user interface logic and interacts with the helper functions defined in `app_utils.py`.
 - `app_utils.py`: This file contains all the helper functions used in the application for loading CSV files, running the LLMChain, and generating transformation instructions, correction instructions, and transformation code.
 
-## Function Descriptions
+## Method Descriptions
 
-`app_utils.py` contains the following functions:
+`app_utils.py` contains the following methods:
 
 - `load_csv(file)`: This function takes a file path as an argument and uses pandas to load the CSV file. It returns a DataFrame containing the file data.
 
