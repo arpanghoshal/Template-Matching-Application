@@ -49,7 +49,7 @@ streamlit run app.py
 
 ## Proposed Solution for Column Mapping Misalignment and Ambiguity in Assignments
 
-**Project Demo:** [Link](https://template-matching-application.streamlit.app/)
+**Project Demo:** [Link to Streamlit App](https://template-matching-application.streamlit.app/)
 
 **Algorithm for the Approach:** [Link to the Llgorithm for the Approach](https://github.com/arpanghoshal/Template-Matching-Application/blob/main/psudo_algorithm_remove_misalign.py)
 
