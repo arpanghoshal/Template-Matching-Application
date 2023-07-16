@@ -31,6 +31,11 @@ def generate_transformation_instructions(user_file, template_file, openai_api_ke
     if error is not None:
         # Return None and the error if an exception occurs
         return None, error
+    
+    global user_table_str_col
+    global user_table_str_frst
+    global template_table_str_col
+    global template_table_str_frst
 
     # Extract information about the tables for the prompt
     user_table_str_col = str(list(user_table.columns))
@@ -38,19 +43,54 @@ def generate_transformation_instructions(user_file, template_file, openai_api_ke
     user_table_str_frst = str(list(user_table.iloc[0]))
     template_table_str_frst = str(list(template_table.iloc[0]))
 
+    template_table_lst_col = list(template_table.columns)
+
+    result = {}
+    for item in template_table_lst_col:
+        result[f"old_{item}_format"] = ""
+        result[f"new_{item}_format"] = ""
+        result[f"old_{item}_datatype"] = ""
+        result[f"new_{item}_datatype"] = ""
+
+
+    result = str(result)
+
     # Example of the expected output
     output_example="""
     {
-        "column_renames": {},
+        "ç": {},
         "columns_to_remove": [],
         "columns_to_keep": [],
-        "data_transformations": {}
+        "data_transformations":  %s
+        }
+  
     }
-    """
+    """  % result
+
+    describe_output_example="""
+
+        Here column_renames is a mapping of user data columns to template data columns, for example:
+        {
+            "user_data_column_1": "template_data_column_1",
+            "user_data_column_2": "template_data_column_2",
+        }
+
+        Here in data_transformations, while computing observe these very carefully:
+        {
+            "old_item_format": format of the item in the user data
+            "new_item_format": format of the item in the template data,
+            "old_item_datatype": data type of the item in the user data
+            "new_item_datatype": data type of the item in the template data
+        }
+
+        item can be any column name in the template data
+
+
+        """
     
     # Prepare the prompt template
     prompt = PromptTemplate(
-        input_variables=["user_table_str_col", "user_table_str_frst", "template_table_str_col", "template_table_str_frst", "output_example"],
+        input_variables=["user_table_str_col", "user_table_str_frst", "template_table_str_col", "template_table_str_frst", "output_example", "describe_output_example"],
         template="""
         Given the following information:
         - User data columns: {user_table_str_col}
@@ -63,7 +103,10 @@ def generate_transformation_instructions(user_file, template_file, openai_api_ke
         2. Any necessary data transformations (data_transformations)
         3. Columns to remove or keep (columns_to_remove, columns_to_keep)
 
-        The output should follow this format: {output_example}
+        The output should follow JSON format, this is one of the example: {output_example}
+
+        {describe_output_example}
+
         """
     )
 
@@ -75,13 +118,14 @@ def generate_transformation_instructions(user_file, template_file, openai_api_ke
         'user_table_str_frst': user_table_str_frst,
         'template_table_str_col':template_table_str_col,
         'template_table_str_frst':template_table_str_frst,
-        'output_example':output_example
+        'output_example':output_example,
+        'describe_output_example':describe_output_example
     })
 
 def generate_correction_instructions(json_output, not_correct, openai_api_key):
     """Generate corrected transformation instructions based on user feedback."""
     # Initialize the language model
-    llm = ChatOpenAI(model='gpt-3.5-turbo',openai_api_key=openai_api_key,temperature=0.2)
+    llm = ChatOpenAI(model='gpt-3.5-turbo',openai_api_key=openai_api_key,temperature=0)
     
     # Prepare the prompt template
     prompt = PromptTemplate(
@@ -99,15 +143,21 @@ def generate_correction_instructions(json_output, not_correct, openai_api_key):
 def generate_transformation_code(json_output, openai_api_key):
     """Generate transformation code based on json instructions."""
     # Initialize the language model
-    llm = ChatOpenAI(model='gpt-3.5-turbo',openai_api_key=openai_api_key,temperature=0.2)
+    llm = ChatOpenAI(model='gpt-3.5-turbo',openai_api_key=openai_api_key,temperature=0.4)
     
     # Prepare the prompt template
     prompt = PromptTemplate(
-        input_variables=["json_output"],
+        input_variables=["user_table_str_col", "user_table_str_frst", "template_table_str_col", "template_table_str_frst","json_output"],
         template="""
+        - The user data columns are: {user_table_str_col}
+        - The user data example row is: {user_table_str_frst}
+        - The template data columns are: {template_table_str_col}
+        - The template data example row is: {template_table_str_frst}
+
         - Given these instructions in JSON format:
           {json_output}
-        - Write a Python script using pandas to:
+
+        - Write a Python script transforming 'user_data.csv' to 'transformed_data.csv' using pandas to:
           1. Rename the columns according to 'column_renames'
           2. Drop the columns listed in 'columns_to_remove'
           3. Keep the columns listed in 'columns_to_keep'
@@ -115,4 +165,9 @@ def generate_transformation_code(json_output, openai_api_key):
         """
     )
     # Run the LLMChain
-    return run_llm_chain(llm, prompt, {'json_output': json_output})
+    return run_llm_chain(llm, prompt, {
+        'user_table_str_col': user_table_str_col,
+        'user_table_str_frst': user_table_str_frst,
+        'template_table_str_col':template_table_str_col,
+        'template_table_str_frst':template_table_str_frst,
+        'json_output': json_output})
