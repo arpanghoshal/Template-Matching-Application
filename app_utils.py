@@ -99,7 +99,7 @@ class AppUtils:
             """
         )
 
-        llm = ChatOpenAI(model='gpt-3.5-turbo',openai_api_key=openai_api_key,temperature=0.4)
+        llm = ChatOpenAI(model='gpt-3.5-turbo',openai_api_key=openai_api_key,temperature=0.5)
         return self.run_llm_chain(llm, prompt, {
             'user_table_str_col': self.user_table_str_col,
             'user_table_str_frst': self.user_table_str_frst,
