@@ -49,11 +49,57 @@ streamlit run app.py
 
 5. Follow the prompts in the application to upload your data and template files, verify the generated transformation instructions, and generate your transformation code.
 
-## ToDo:
+Sure, here is the proposed approach in Markdown format.
 
-#### Misalignment and Ambiguity of mapping columns: 
-##### This can be removed by taking the cosine similarity of LLM(eg. BERT) embeddings of the User's data and matching it with the Template's data
-##### And then mapping it based on the the similarity.
+---
+
+**Proposed Approach to Solve Misalignment and Ambiguity of Column Mapping in Assignment**
+
+
+---
+
+**Project Demo:** [Link](#)
+
+**Algorithm for the Approach:** [Link](#)
+
+---
+
+**1. Column Mapping:**
+
+- Load user and template data.
+- For each user data column, extract and encode the first few rows using a Language Model (e.g., BERT) to generate 'user_embeddings.'
+- For each template data column, generate 'template_embeddings.'
+- Compute cosine similarity between 'user_embeddings' and 'template_embeddings' for each pair of user and template columns.
+- Map each user column to the template column with the highest cosine similarity.
+
+---
+
+**2. Addressing Ambiguities in Mapping:**
+
+- Identify mappings where multiple user columns are mapped to a single template column or vice versa.
+- For each ambiguous mapping, present the user with potential matches for them to confirm or select the most suitable match.
+
+---
+
+**3. Generating Transformation Logic:**
+
+- For each mapped column pair, use GPT-3.5 to generate transformation logic based on examples of the transformation process.
+
+---
+
+**4. Retraining for Improved Accuracy:**
+
+- **Approach 1 - Few-shot Learning:** Store the transformation logic as part of 'prompt_examples' for future transformations.
+- **Approach 2 - Retraining the Model:** Continuously collect 'labeled_data' for each successful transformation. When enough 'labeled_data' is collected, retrain the GPT model. [Link to the Algorithm Approach](#)
+
+---
+
+**5. Post-Transformation Validation:**
+
+- Apply the transformation logic to the user data to generate 'transformed_data.'
+- Compare 'transformed_data' with the template format and alert the user of any discrepancies.
+
+---
 
 ## Contributing
 
