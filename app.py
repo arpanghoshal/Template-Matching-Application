@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 from app_utils import generate_transformation_instructions, generate_correction_instructions, generate_transformation_code
 
 # Set title of the web page
@@ -12,6 +13,8 @@ user_file = st.file_uploader("Upload your table to transform", type=['csv'])
 
 # Get the OpenAI API Key from streamlit secrets
 openai_api_key=st.secrets['openai']['OPENAI_API_KEY']
+
+
 
 # If both files are uploaded
 if user_file and template_file:
@@ -28,9 +31,10 @@ if user_file and template_file:
         if is_correct == 'No':
             # If not, ask the user for correction details
             not_correct = st.text_input('Please indicate what is not correct:')
+            st.caption('Example: new_Date_format should be MM-dd-yyyy')
             if not_correct:
                 # Generate corrected transformation instructions
-                json_output, error = generate_correction_instructions(json_output, not_correct, openai_api_key)
+                json_output, error = generate_correction_instructions( json_output, not_correct, openai_api_key)
                 if error is not None:
                     # Display any errors
                     st.write(f"An error occurred: {error}")
@@ -39,7 +43,7 @@ if user_file and template_file:
                     st.json(json_output)
                     # Allow user to generate corrected transformation code
                     if st.button('Generate Corrected Transformation Code'):
-                        code_output, error = generate_transformation_code(json_output, openai_api_key)
+                        code_output, error = generate_transformation_code(  json_output, openai_api_key)
                         if error is not None:
                             # Display any errors
                             st.write(f"An error occurred: {error}")
@@ -58,6 +62,11 @@ if user_file and template_file:
                     # Display the generated transformation code
                     st.code(code_output)
                     st.write("Please copy the code and run it in your local machine.")
+                    st.caption('Refresh the page to try with another pair of files.')
+
+    
 else:
     # If both files are not uploaded, ask the user to upload both
     st.write("Please upload both files.")
+
+
