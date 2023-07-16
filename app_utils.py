@@ -47,12 +47,12 @@ def generate_transformation_instructions(user_file, template_file, openai_api_ke
 
     result = {}
     for item in template_table_lst_col:
-        result[f"old_{item}_format"] = ""
-        result[f"new_{item}_format"] = ""
-        result[f"old_{item}_datatype"] = ""
-        result[f"new_{item}_datatype"] = ""
-        result[f"old_{item}_firstdata"] = ""
-        result[f"new_{item}_firstdata"] = ""
+        result[f"old_{item}_format"] = "format of the item in the user data"
+        result[f"new_{item}_format"] = "format of the item in the template data"
+        result[f"old_{item}_datatype"] = "data type of the item in the user data"
+        result[f"new_{item}_datatype"] = "data type of the item in the template data"
+        result[f"old_{item}_example_data"] = "first/example data of the item in the user data"
+        result[f"new_{item}_example_data"] = "first/example data of the item in the template data"
 
 
     result = str(result)
@@ -60,9 +60,9 @@ def generate_transformation_instructions(user_file, template_file, openai_api_ke
     # Example of the expected output
     output_example="""
     {
-        "ç": {},
-        "columns_to_remove": [],
-        "columns_to_keep": [],
+        "column_renames": {},
+        "columns_to_remove": [list of columns that to be removed],
+        "columns_to_keep": [list of columns that to be kept],
         "data_transformations":  %s
         }
   
@@ -83,8 +83,8 @@ def generate_transformation_instructions(user_file, template_file, openai_api_ke
             "new_item_format": format of the item in the template data,
             "old_item_datatype": data type of the item in the user data
             "new_item_datatype": data type of the item in the template data
-            "old_item_firstdata": first row of the item in the user data
-            "new_item_firstdata": first row of the item in the template data
+            "old_item_example_data": example data of the item in the user data
+            "new_item_example_data": example data of the item in the template data
         }
 
         item are the column name in the template data
@@ -96,31 +96,30 @@ def generate_transformation_instructions(user_file, template_file, openai_api_ke
     prompt = PromptTemplate(
         input_variables=["user_table_str_col", "user_table_str_frst", "template_table_str_col", "template_table_str_frst", "output_example", "describe_output_example"],
         template="""
-    Given the following information:
-    - User data columns: {user_table_str_col}
-    - User data example row: {user_table_str_frst}
-    - Template data columns: {template_table_str_col}
-    - Template data example row: {template_table_str_frst}
+        Given the following information:
+        - User_data columns: {user_table_str_col}
+        - User_data example row: {user_table_str_frst}
+        - Template_data columns: {template_table_str_col}
+        - Template_data example row: {template_table_str_frst}
 
-    For each column in the template data, generate a JSON object detailing:
-    1. The corresponding user data column (column_renames)
-    2. The necessary transformations, including:
-        - Original format and datatype
-        - Desired format and datatype
-        - Example data before and after transformation
-    3. Specify which columns should be removed or kept (columns_to_remove, columns_to_keep)
+        Generate a JSON object detailing:
+        1. Mapping of user data columns to template data columns (column_renames)
+        2. Data transformations of format and data type, it also shows the example data of column (data_transformations) [CAUTION: data_transformations should fill all the values. If you don't want to change the format or datatype or firstdata, please fill the same value as the old one.
+]
+        3. Columns to remove or keep (columns_to_remove, columns_to_keep)
 
-    IMPORTANT: If no transformation is necessary for a certain field, please specify the same values for the old and new formats, datatypes, and example data.
+                The output should follow JSON format, this is one of the example: {output_example}
+        
 
-    The output should follow JSON format, this is one of the example: {output_example}
 
-    {describe_output_example}
+
+        {describe_output_example}
 
         """
     )
 
     # Initialize the language model
-    llm = ChatOpenAI(model='gpt-3.5-turbo',openai_api_key=openai_api_key,temperature=0.3)
+    llm = ChatOpenAI(model='gpt-3.5-turbo',openai_api_key=openai_api_key,temperature=0.4)
     # Run the LLMChain
     return run_llm_chain(llm, prompt, {
         'user_table_str_col': user_table_str_col,
