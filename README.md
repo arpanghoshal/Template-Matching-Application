@@ -53,7 +53,7 @@ streamlit run app.py
 
 **Easy Approach:** Just classifying the user_table rows to the template_columns and mapping it (ask GPT-3.5 to classify)
 
-**Algorithm for the Approach:** [Link to the Algorithm for the Approach](https://github.com/arpanghoshal/Template-Matching-Application/blob/main/psudo_algorithm_remove_misalign.py)
+**Algorithm for the Long Approach mentioned below:** [Link to the Algorithm for the Approach](https://github.com/arpanghoshal/Template-Matching-Application/blob/main/psudo_algorithm_remove_misalign.py)
 
 1. **Column Mapping:**
 
