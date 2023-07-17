@@ -46,14 +46,23 @@ streamlit run app.py
 5. Follow the application's prompts to upload your data and template files, validate the generated transformation instructions, and create your transformation code.
 
 ---
+## To Do
 
-## Proposed Solution for Column Mapping Misalignment and Ambiguity in Assignments
+1. Adding output parser for the outputs of chains
+2. Prompting with ReAct (Thought, Observation, Action)
+3. Adding delimiters to prevent prompt injection
+4. Sequential chaining of prompts 
+5. Performing tests on the code generated and prompting to make the code better
+6. Solving column mapping and misalignment
+
+---
+## Proposed Solution for Column Mapping Misalignment and Ambiguity 
 
 **Project Demo:** [Link to Streamlit App](https://template-matching-application.streamlit.app/)
 
 **Easy Approach:** Adding another layer of prompting to classify the user_table rows to the template_table columns and map it (ask GPT-3.5 to classify)
 
-**Algorithm for the Long Approach mentioned below:** [Link to the Algorithm for the Approach](https://github.com/arpanghoshal/Template-Matching-Application/blob/main/psudo_algorithm_remove_misalign.py)
+**Longer Approach:** [Link to the Algorithm for the Approach](https://github.com/arpanghoshal/Template-Matching-Application/blob/main/psudo_algorithm_remove_misalign.py)
 
 1. **Column Mapping:**
 
@@ -74,7 +83,7 @@ streamlit run app.py
 
 4. **Improving Accuracy Through Retraining:**
 
-- **Approach 1 - Few-shot Learning:** Store the transformation logic as part of 'prompt_examples' for future transformations. [Link to the Few-shot Approach](https://github.com/arpanghoshal/Template-Matching-Application/blob/main/pseudo_algorithm_fewshot.py)
+- **Approach 1 - Few-shot Learning:** Store the transformation logic as part of 'prompt_examples' for future transformations. (distinct with MMR algo) [Link to the Few-shot Approach](https://github.com/arpanghoshal/Template-Matching-Application/blob/main/pseudo_algorithm_fewshot.py)
 - **Approach 2 - Retraining the Model:** Continuously gather 'labeled_data' from each successful transformation. When enough 'labeled_data' has been accumulated, retrain the LLM model. [Link to the Retraining Approach](https://github.com/arpanghoshal/Template-Matching-Application/blob/main/pseudo_algorithm_training.py)
 
 5. **Post-Transformation Validation:**
