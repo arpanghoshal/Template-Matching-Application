@@ -51,12 +51,14 @@ streamlit run app.py
 
 **Project Demo:** [Link to Streamlit App](https://template-matching-application.streamlit.app/)
 
+**Easy Approach:** Just classifying the user_table rows to the template_columns and mapping it (ask GPT-3.5 to classify)
+
 **Algorithm for the Approach:** [Link to the Algorithm for the Approach](https://github.com/arpanghoshal/Template-Matching-Application/blob/main/psudo_algorithm_remove_misalign.py)
 
 1. **Column Mapping:**
 
 - Load user and template data.
-- Generate 'user_embeddings' by encoding the first few rows of each user data column using a Language Model (like BERT).
+- Generate 'user_embeddings' by encoding the first few rows of each user data column using a Language Model.
 - Produce 'template_embeddings' for each template data column.
 - Compute the cosine similarity between 'user_embeddings' and 'template_embeddings' for each user-template column pair.
 - Map each user column to the template column with the highest cosine similarity.
