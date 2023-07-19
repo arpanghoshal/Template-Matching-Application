@@ -49,7 +49,7 @@ streamlit run app.py
 ## To Do
 
 1. Adding output parser for the outputs of chains
-2. Prompting with ReAct (Thought, Observation, Action)
+2. Experimenting with different kinds of prompts found here (https://www.promptingguide.ai/techniques)
 3. Adding delimiters to prevent prompt injection
 4. Sequential chaining of prompts 
 5. Performing tests on the code generated and prompting to make the code better
