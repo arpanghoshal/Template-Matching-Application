@@ -7,7 +7,7 @@ app_utils = AppUtils()
 st.title('Template Matching Application')
 st.markdown('Made by [Arpan Ghoshal](https://www.linkedin.com/in/arpanghoshal/)')
 
-st.markdown('Example Template File and File to Transform [File](https://drive.google.com/file/d/1YldCXidwvwnqklun8xe6f7Xy3deESroJ/view?usp=sharing)')
+st.markdown('Example Template File and File to Transform [Click Here](https://drive.google.com/file/d/1YldCXidwvwnqklun8xe6f7Xy3deESroJ/view?usp=sharing)')
 
 template_file = st.file_uploader("Upload your Template Table", type=['csv'])
 user_file = st.file_uploader("Upload your table to transform", type=['csv'])
