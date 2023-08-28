@@ -50,7 +50,7 @@ streamlit run app.py
 
 1. Adding output parser for the outputs of chains
 2. Experimenting with different kinds of prompts found here (https://www.promptingguide.ai/techniques)
-3. Adding delimiters to prevent prompt injection
+3. **Adding layer of prompt injection classifier to prevent prompt injection**
 4. Sequential chaining of prompts 
 5. Performing tests on the code generated and prompting to make the code better
 6. Solving column mapping and misalignment
